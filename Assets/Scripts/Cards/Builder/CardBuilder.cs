@@ -12,13 +12,11 @@ public class CardBuilder
         card.Description = desc;
         return this;
     }
-
     public CardBuilder WithEffect(string effect)
     {
         card.Description += "\nEffect: " + effect;
         return this;
     }
-
     public CardBuilder WithTarget(GameObject target)
     {
         card.Target = target;
@@ -31,17 +29,24 @@ public class CardBuilder
     }
     public Card Build()
     {
+        if (card is CustomCard customCard)
+        {
+            customCard.SetPlayAction(playAction);
+        }
         Card result = card;
         card = null;
         return result;
     }
 }
-
 internal class CustomCard : Card
 {
     private Action playAction;
     public override void Play()
     {
-        playAction?.Invoke();  // Invoke the custom play action when the card is played
+        playAction?.Invoke();
+    }
+    public void SetPlayAction(Action action)
+    {
+        playAction = action;
     }
 }

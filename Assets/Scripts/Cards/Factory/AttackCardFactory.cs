@@ -23,13 +23,13 @@ namespace Assets.Scripts.Cards.Factory
         public RapidFireCard()
         {
             Name = "Rapid Fire";
-            Description = "Answer quickly! Opponent gets no time to think.";
+            Description = "Speak so quickly, that opponent doesn't have time to react. Inflict 12 damage";
         }
         public override void Play()
         {
             if(Target != null)
             {
-                Target.GetComponent<CharacterStats>().TakeDamage(200);
+                Target.GetComponent<CharacterStats>().TakeDamage(12);
             }
             else
             {
@@ -42,14 +42,15 @@ namespace Assets.Scripts.Cards.Factory
         public TrickQuestionCard()
         {
             Name = "Trick Question";
-            Description = "Ask a misleading question. Opponent loses 5 Defense.";
+            Description = "Ask a misleading question. Opponent loses 3 Defense and takes 1 damage.";
         }
 
         public override void Play()
         {
             if (Target != null)
             {
-                Target.GetComponent<CharacterStats>().TakeDamage(5);
+                Target.GetComponent<CharacterStats>().DecreaseDefense(3);
+                Target.GetComponent<CharacterStats>().TakeDamage(1);
             }
             else
             {

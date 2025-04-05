@@ -13,7 +13,6 @@ public class CardButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private GameManager gameManager;
     private int cardIndex;
 
-    // Tooltip for showing card description
     [SerializeField] private ShowSkillDescription tooltip;
     public void Init(Card cardData, GameManager gm, int index)
     {
@@ -28,7 +27,7 @@ public class CardButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnCardClicked()
     {
         // Play card on enemy by default
-        GameManager.Instance.PlayCard(cardIndex, card.Target);
+        GameManager.Instance.PlayCard(cardIndex);
         Debug.Log($"Card {card.Name} played.");
     }
 

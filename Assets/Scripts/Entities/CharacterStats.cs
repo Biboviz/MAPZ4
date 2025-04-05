@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int defense = 10;
+    [SerializeField] int maxHealth = 100;
+    [SerializeField] int defense = 10;
     public void TakeDamage(int damage)
     {
         int actualDamage = Mathf.Max(damage - defense, 0);
@@ -18,6 +18,10 @@ public class CharacterStats : MonoBehaviour
     public void DecreaseDefense(int ammount)
     {
         defense -= ammount;
+    }
+    public void AddDefense(int ammount)
+    {
+        defense += ammount;
     }
     private void Die()
     {

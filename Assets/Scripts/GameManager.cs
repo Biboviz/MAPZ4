@@ -3,11 +3,6 @@ using System.Collections;
 using Assets.Scripts.Cards.Factory;
 using NUnit.Framework;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
-using System;
-using static UnityEngine.EventSystems.EventTrigger;
-using Unity.VisualScripting;
-using static UnityEngine.GraphicsBuffer;
 
 
 namespace Assets.Scripts
@@ -17,12 +12,14 @@ namespace Assets.Scripts
         public static GameManager Instance { get; private set; }
         private GameManager() { }
 
-        [SerializeField] int MaxCardsInHand = 5;
+        [SerializeField] int MaxAttackCardsInHand = 2;
+        [SerializeField] int MaxDefenseCardsInHand = 3;
         [SerializeField] GameObject Player;
         [SerializeField] GameObject Enemy;
         [SerializeField] GameObject CardButtonPrefab;
         [SerializeField] Transform CardPanel;
         IFactory attackCardFactory;
+        IFactory defenseCardFactory;
         List<Card> cards;
         private void Awake()
         {
@@ -36,37 +33,63 @@ namespace Assets.Scripts
         }
         void Start()
         {
+            InitializeCards();
+            RenderCards();
+        }
+        void InitializeCards()
+        {
             attackCardFactory = new AttackCardFactory();
+            defenseCardFactory = new DefenseCardFactory();
             cards = new List<Card>();
+
             Card brain = new CardBuilder()
                 .CreateBaseCard("The last braincell", "Remember most useless information stored in a brain.")
                 .WithEffect("Decrease your defence by 2")
                 .WithTarget(Player)
                 .WithPlayAction(() =>
                 {
+                    Debug.Log("PlayAction triggered!");
                     if (Player != null)
                     {
-                        Player.GetComponent<CharacterStats>().DecreaseDefense(2);
-                        Debug.Log($"Player defense = {Player.GetComponent<CharacterStats>().def}");
+                        var stats = Player.GetComponent<CharacterStats>();
+                        stats.DecreaseDefense(2);
+                        Debug.Log($"The last braincell played! Defense decreased by 2. Player's defence now is {stats.def}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Player is null in brain card!");
                     }
                 })
                 .Build();
+
             cards.Add(brain);
-            for (int i = 0; i < MaxCardsInHand + 1; i++)
+
+            ManufactureCardsInFactory(defenseCardFactory, MaxDefenseCardsInHand, Player);
+            ManufactureCardsInFactory(attackCardFactory, MaxAttackCardsInHand, Enemy);
+
+        }
+        void ManufactureCardsInFactory(IFactory factoryName, int maxCardsInHand, GameObject Target)
+        {
+            for (int i = 0; i < maxCardsInHand; i++)
             {
-                Card card = (Card)attackCardFactory.CreateCard();
+                Card card = (Card)factoryName.CreateCard();
+                card.Target = Target;
                 cards.Add(card);
-                card.Target = Player;
-                // Instantiate button and assign data
+            }
+        }
+        void RenderCards()
+        {
+            for (int i = 0; i < cards.Count; i++)
+            {
                 GameObject buttonGO = Instantiate(CardButtonPrefab, CardPanel);
                 CardButtonUI buttonUI = buttonGO.GetComponent<CardButtonUI>();
                 buttonUI.Init(cards[i], this, i);
             }
         }
-        internal void PlayCard(int index, GameObject Target)
+
+        internal void PlayCard(int index)
         {
             Card selectedCard = cards[index];
-            selectedCard.Target = Target;
             selectedCard.Play();
         }
     }
