@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using Assets.Scripts;
 using UnityEngine.EventSystems;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class CardButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -27,8 +28,8 @@ public class CardButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnCardClicked()
     {
         // Play card on enemy by default
-        gameManager.PlayCard(cardIndex, true);
-        Debug.Log($"Card {card.Name} played on enemy.");
+        GameManager.Instance.PlayCard(cardIndex, card.Target);
+        Debug.Log($"Card {card.Name} played.");
     }
 
     public void OnPointerEnter(PointerEventData eventData)

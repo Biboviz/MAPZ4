@@ -5,7 +5,6 @@ public class CharacterStats : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private int defense = 10;
-
     public void TakeDamage(int damage)
     {
         int actualDamage = Mathf.Max(damage - defense, 0);
@@ -16,9 +15,18 @@ public class CharacterStats : MonoBehaviour
             Die();
         }
     }
+    public void DecreaseDefense(int ammount)
+    {
+        defense -= ammount;
+    }
     private void Die()
     {
         Debug.Log($"{gameObject.name} has died.");
         gameObject.SetActive(false);
+    }
+    public int def
+    {
+        get { return defense; }
+        set { defense = value; }
     }
 }
