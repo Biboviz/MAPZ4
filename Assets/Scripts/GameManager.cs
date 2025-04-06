@@ -11,6 +11,7 @@ namespace Assets.Scripts
     {
         public static GameManager Instance { get; private set; }
         private GameManager() { }
+        
 
         [SerializeField] int MaxAttackCardsInHand = 2;
         [SerializeField] int MaxDefenseCardsInHand = 3;
@@ -31,22 +32,22 @@ namespace Assets.Scripts
 
             Instance = this;
         }
-        void Start()
+        public void Start()
         {
             InitializeCards();
             RenderCards();
         }
-        void InitializeCards()
+        public void InitializeCards()
         {
             attackCardFactory = new AttackCardFactory();
             defenseCardFactory = new DefenseCardFactory();
             cards = new List<Card>();
 
-            Card brain = new CardBuilder()
-                .CreateBaseCard("The last braincell", "Remember most useless information stored in a brain.")
-                .WithEffect("Decrease your defence by 2")
-                .WithTarget(Player)
-                .WithPlayAction(() =>
+            var brain = new CardBuilder();
+            brain.WithName("The last braincell");
+            brain.WithEffect("Remember most useless information stored in a brain.\n Decrease your defence by 2");
+            brain.WithTarget(Player);
+            brain.WithPlayAction(() =>
                 {
                     Debug.Log("PlayAction triggered!");
                     if (Player != null)
@@ -59,14 +60,12 @@ namespace Assets.Scripts
                     {
                         Debug.LogWarning("Player is null in brain card!");
                     }
-                })
-                .Build();
-
-            cards.Add(brain);
+                });
+            var customCard = brain.Build();
+            cards.Add(customCard);
 
             ManufactureCardsInFactory(defenseCardFactory, MaxDefenseCardsInHand, Player);
             ManufactureCardsInFactory(attackCardFactory, MaxAttackCardsInHand, Enemy);
-
         }
         void ManufactureCardsInFactory(IFactory factoryName, int maxCardsInHand, GameObject Target)
         {
@@ -77,13 +76,17 @@ namespace Assets.Scripts
                 cards.Add(card);
             }
         }
-        void RenderCards()
+        internal void RenderCards()
         {
+            foreach (Transform child in CardPanel)
+            {
+                Destroy(child.gameObject);
+            }
             for (int i = 0; i < cards.Count; i++)
             {
                 GameObject buttonGO = Instantiate(CardButtonPrefab, CardPanel);
                 CardButtonUI buttonUI = buttonGO.GetComponent<CardButtonUI>();
-                buttonUI.Init(cards[i], this, i);
+                buttonUI.Init(cards[i], i);
             }
         }
 

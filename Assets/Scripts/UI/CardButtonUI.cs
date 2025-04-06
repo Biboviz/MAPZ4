@@ -10,14 +10,12 @@ public class CardButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI descriptionText;
     private Card card;
-    private GameManager gameManager;
     private int cardIndex;
 
     [SerializeField] private ShowSkillDescription tooltip;
-    public void Init(Card cardData, GameManager gm, int index)
+    public void Init(Card cardData, int index)
     {
         card = cardData;
-        gameManager = gm;
         cardIndex = index;
         nameText.text = card.Name;
         descriptionText.text = card.Description;
@@ -26,7 +24,6 @@ public class CardButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnCardClicked()
     {
-        // Play card on enemy by default
         GameManager.Instance.PlayCard(cardIndex);
         Debug.Log($"Card {card.Name} played.");
     }

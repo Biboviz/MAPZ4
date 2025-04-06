@@ -3,38 +3,38 @@ using UnityEngine;
 
 public class CardBuilder
 {
-    private Card card;
+    private CustomCard card;
     private Action playAction;
-    public CardBuilder CreateBaseCard(string name, string desc)
+    public CardBuilder ()
     {
-        card = new CustomCard(); 
-        card.Name = name;
-        card.Description = desc;
-        return this;
+        this.Reset();
     }
-    public CardBuilder WithEffect(string effect)
+    private void Reset()
     {
-        card.Description += "\nEffect: " + effect;
-        return this;
+        card = new CustomCard();
+        playAction = null;
     }
-    public CardBuilder WithTarget(GameObject target)
+    public void WithName(string Name)
+    {
+        card.Name = Name;
+    }
+    public void WithEffect(string effect)
+    {
+        card.Description += "Effect: " + effect;
+    }
+    public void WithTarget(GameObject target)
     {
         card.Target = target;
-        return this;
     }
-    public CardBuilder WithPlayAction(Action action)
+    public void WithPlayAction(Action action)
     {
         playAction = action;
-        return this;
     }
     public Card Build()
     {
-        if (card is CustomCard customCard)
-        {
-            customCard.SetPlayAction(playAction);
-        }
+        card.SetPlayAction(playAction);
         Card result = card;
-        card = null;
+        Reset();
         return result;
     }
 }

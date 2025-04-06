@@ -4,7 +4,7 @@ using UnityEngine;
 public class ShowSkillDescription : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI tooltipText;
-    [SerializeField] private Vector2 tooltipTextOffset = new Vector2(10f, 10f); // Optional offset from mouse position
+    [SerializeField] private Vector2 tooltipTextOffset = new Vector2(10f, 10f);
 
     private void Start()
     {
@@ -16,22 +16,18 @@ public class ShowSkillDescription : MonoBehaviour
 
         Vector3 mousePos = Input.mousePosition;
 
-        // Get the screen width and height
         float screenWidth = Screen.width;
         float screenHeight = Screen.height;
 
-        // Adjust the tooltip posityion to prevent it from going off-screen
         if (mousePos.x + tooltipText.GetComponent<RectTransform>().rect.width > screenWidth)
         {
-            mousePos.x = screenWidth - tooltipText.GetComponent<RectTransform>().rect.width - tooltipTextOffset.x; // Keep the tooltipText within screen width
+            mousePos.x = screenWidth - tooltipText.GetComponent<RectTransform>().rect.width - tooltipTextOffset.x; 
         }
 
         if (mousePos.y + tooltipText.GetComponent<RectTransform>().rect.height > screenHeight)
         {
-            mousePos.y = screenHeight - tooltipText.GetComponent<RectTransform>().rect.height - tooltipTextOffset.y; // Keep the tooltipText within screen height
+            mousePos.y = screenHeight - tooltipText.GetComponent<RectTransform>().rect.height - tooltipTextOffset.y; 
         }
-
-        // Apply the mouse position plus the optional offset to the tooltipText
         tooltipText.transform.position = mousePos + new Vector3(tooltipTextOffset.x, tooltipTextOffset.y, 0f);
 
     }
