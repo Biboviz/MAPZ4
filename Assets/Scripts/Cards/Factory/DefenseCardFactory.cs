@@ -20,6 +20,7 @@ namespace Assets.Scripts.Cards.Factory
     }
     public class AbstractAnswer : Card
     {
+
         public AbstractAnswer()
         {
             Name = "Abstract Answer";

@@ -37,7 +37,7 @@ namespace Assets.Scripts
             InitializeCards();
             RenderCards();
         }
-        public void InitializeCards()
+        void InitializeCards()
         {
             attackCardFactory = new AttackCardFactory();
             defenseCardFactory = new DefenseCardFactory();
@@ -89,7 +89,6 @@ namespace Assets.Scripts
                 buttonUI.Init(cards[i], i);
             }
         }
-
         internal void PlayCard(int index)
         {
             Card selectedCard = cards[index];

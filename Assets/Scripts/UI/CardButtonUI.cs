@@ -30,13 +30,11 @@ public class CardButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // Show tooltip with card description
         tooltip.ShowTooltip();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // Hide tooltip
         tooltip.HideTooltip();
     }
 }
