@@ -18,18 +18,20 @@ namespace Assets.Scripts.Cards.Factory
             return (Card)Activator.CreateInstance(defenseCardTypes[index]);
         }
     }
-    public class AbstractAnswer : Card
+    public class AbstractAnswer : Card, IDefense
     {
+        private int defense = 1;
+        public int Defense => defense;
         public AbstractAnswer()
         {
             Name = "Abstract Answer";
-            Description = "Answer in the most absract way possible.\n +1 defense";
+            Description = $"Answer in the most absract way possible.\n +{defense} defense";
         }
         public override void Play()
         {
             if (Target != null)
             {
-                Target.GetComponent<CharacterStats>().AddDefense(1);
+                Target.GetComponent<CharacterStats>().AddDefense(defense);
             }
             else
             {
@@ -37,19 +39,21 @@ namespace Assets.Scripts.Cards.Factory
             }
         }
     }
-    public class TheOnlyRightAnswer : Card
+    public class TheOnlyRightAnswer : Card, IDefense
     {
+        private int defense = 5;
+        public int Defense => defense;
         public TheOnlyRightAnswer()
         {
             Name = "The Only Right Answer";
-            Description = "Remember correct answer for the asked question.\n +5 defense";
+            Description = $"Remember correct answer for the asked question.\n +{defense} defense";
         }
 
         public override void Play()
         {
             if (Target != null)
             {
-                Target.GetComponent<CharacterStats>().AddDefense(5);
+                Target.GetComponent<CharacterStats>().AddDefense(defense);
             }
             else
             {

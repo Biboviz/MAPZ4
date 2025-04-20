@@ -19,3 +19,15 @@ public abstract class Card : ICard
 
     public abstract void Play();
 }
+public interface IDamage
+{
+    int Damage { get; }
+}
+public interface IDefense
+{
+    int Defense { get; }
+}
+public interface ICost
+{
+    int Cost { get; }
+}

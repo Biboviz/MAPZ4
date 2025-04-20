@@ -5,38 +5,42 @@ using Assets.Scripts;
 using UnityEngine.EventSystems;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
-public class CardButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class CardButtonUI : MonoBehaviour
 {
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI descriptionText;
+    public TextMeshProUGUI damageText;
+    public TextMeshProUGUI defenseText;
+    public TextMeshProUGUI costText;
+
     private Card card;
     private int cardIndex;
 
-    [SerializeField] private ShowSkillDescription tooltip;
-    public void Init(Card cardData, int index)
+    [SerializeField] private bool isIntentDisplay = false;
+    public void Init(Card cardData, int index, bool intentDisplay = false)
     {
         card = cardData;
         cardIndex = index;
         nameText.text = card.Name;
         descriptionText.text = card.Description;
-        GetComponent<Button>().onClick.AddListener(OnCardClicked);
-    }
+        isIntentDisplay = intentDisplay;
 
+        defenseText.text = (card as IDefense)?.Defense.ToString() ?? " ";
+        damageText.text = (card as IDamage)?.Damage.ToString() ?? " ";
+        costText.text = (card as ICost)?.Cost.ToString() ?? " ";
+
+        if (!isIntentDisplay)
+        {
+            GetComponent<Button>().onClick.AddListener(OnCardClicked);
+        }
+        else
+        {
+            GetComponent<Button>().interactable = false;
+        }
+    }
     public void OnCardClicked()
     {
         GameManager.Instance.PlayCard(cardIndex);
-        Debug.Log($"Card {card.Name} played.");
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        // Show tooltip with card description
-        tooltip.ShowTooltip();
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        // Hide tooltip
-        tooltip.HideTooltip();
-    }
 }

@@ -201,7 +201,7 @@ Transform:
   m_GameObject: {fileID: 10361416}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: -0, z: 0}
+  m_LocalPosition: {x: -6, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -499,10 +499,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxAttackCardsInHand: 2
   MaxDefenseCardsInHand: 3
+  MaxEnemiesCardsInHand: 1
   Player: {fileID: 10361416}
   Enemy: {fileID: 897390646}
-  CardButtonPrefab: {fileID: 6123753044464366439, guid: 505788897138f8642bde9d7e75a1644e, type: 3}
-  CardPanel: {fileID: 1102896221}
+  CardButtonPrefab: {fileID: 7989073694239879393, guid: 59b9e583c4652e2468a7be549a94ff30, type: 3}
+  PlayerCardsPanel: {fileID: 1102896221}
+  EnemyCardsPanel: {fileID: 1130502455}
 --- !u!4 &371838366
 Transform:
   m_ObjectHideFlags: 0
@@ -925,7 +927,7 @@ GameObject:
   - component: {fileID: 897390649}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -994,7 +996,7 @@ Transform:
   m_GameObject: {fileID: 897390646}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: -0, z: 0}
+  m_LocalPosition: {x: 6, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1138,6 +1140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1102896221}
   - component: {fileID: 1102896222}
+  - component: {fileID: 1102896223}
   m_Layer: 5
   m_Name: ButtonGrid
   m_TagString: Untagged
@@ -1181,15 +1184,29 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 3
-  m_Spacing: 5
+  m_ChildAlignment: 6
+  m_Spacing: 300
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1102896223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102896220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &1114981614
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,6 +1302,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1102896221}
+  - {fileID: 1130502455}
   - {fileID: 1544079289}
   - {fileID: 1067718655}
   - {fileID: 233629927}
@@ -1295,6 +1313,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1130502454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1130502455}
+  m_Layer: 5
+  m_Name: EnemyIntention
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1130502455
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130502454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1114981618}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 416.80664, y: 672.2256}
+  m_SizeDelta: {x: -1701.8721, y: 315.264}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1229409309
 GameObject:
   m_ObjectHideFlags: 0
@@ -1808,7 +1861,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.2981131, g: 0.22667845, b: 0.22667845, a: 1}
   m_FlipX: 0

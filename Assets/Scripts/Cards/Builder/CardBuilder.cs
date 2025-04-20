@@ -38,9 +38,14 @@ public class CardBuilder
         return result;
     }
 }
-internal class CustomCard : Card
+internal class CustomCard : Card, IDamage, IDefense, ICost
 {
+    public int Damage { get; private set; }
+    public int Defense { get; private set; }
+    public int Cost { get; private set; }
+
     private Action playAction;
+
     public override void Play()
     {
         playAction?.Invoke();
@@ -48,5 +53,11 @@ internal class CustomCard : Card
     public void SetPlayAction(Action action)
     {
         playAction = action;
+    }
+    public void SetStats(int damage, int defense, int cost)
+    {
+        Damage = damage;
+        Defense = defense;
+        Cost = cost;
     }
 }
