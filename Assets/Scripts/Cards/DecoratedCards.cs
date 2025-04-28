@@ -9,18 +9,9 @@ namespace Assets.Scripts.Cards
 
         public ModifiedCard(Card card)
         {
-            _card = card;
-            Name = $"Boosted {_card.Name}";
-            Description = $"Boosted version of {_card.Name}.";
+            this._card = card;
             Target = card.Target;
-            this._card = card;
         }
-
-        public void SetCard(Card card)
-        {
-            this._card = card;
-        }
-
         public override void Play()
         {
             if (this._card != null)
@@ -88,7 +79,7 @@ namespace Assets.Scripts.Cards
                 _card.Play();
 
                 GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
-                enemy.GetComponent<CharacterStats>()?.AddDefense(2);
+                enemy?.GetComponent<CharacterStats>()?.AddDefense(2);
             }
             else
             {

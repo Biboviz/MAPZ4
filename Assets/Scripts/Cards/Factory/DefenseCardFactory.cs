@@ -1,12 +1,11 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using UnityEngine;
 
 namespace Assets.Scripts.Cards.Factory
 {
-	public class DefenseCardFactory : IFactory
-	{
+    public class DefenseCardFactory : IFactory
+    {
         private static List<Type> defenseCardTypes = new List<Type>
     {
         typeof(AbstractAnswer),
