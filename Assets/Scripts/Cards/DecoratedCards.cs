@@ -55,7 +55,10 @@ namespace Assets.Scripts.Cards
             {
                 _card.Play();
                 GameObject enemy = GameObject.FindGameObjectWithTag("Enemy");
-                enemy.GetComponent<CharacterStats>()?.TakeDamage(3);
+                if (enemy != null)
+                {
+                    enemy.GetComponent<CharacterStats>().TakeDamage(3);
+                }
 
             }
             else

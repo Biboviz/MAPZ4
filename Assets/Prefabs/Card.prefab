@@ -822,12 +822,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2686e15cd58c2cd41842a6cac7010831, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 1999745337071880864}
   nameText: {fileID: 5167350733548400790}
   descriptionText: {fileID: 4153420779138028478}
   damageText: {fileID: 932513376776796374}
   defenseText: {fileID: 5185124445594121145}
   costText: {fileID: 7104746129849413347}
-  hoverPreviewPrefab: {fileID: 7989073694239879393}
   isIntentDisplay: 0
 --- !u!114 &4055925625136008613
 MonoBehaviour:

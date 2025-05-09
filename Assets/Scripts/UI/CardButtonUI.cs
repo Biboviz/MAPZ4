@@ -7,6 +7,7 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class CardButtonUI : MonoBehaviour
 {
+    [SerializeField] Image sprite;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI descriptionText;
     public TextMeshProUGUI damageText;
@@ -24,6 +25,8 @@ public class CardButtonUI : MonoBehaviour
         nameText.text = card.Name;
         descriptionText.text = card.Description;
         isIntentDisplay = intentDisplay;
+        card.ButtonUI = this;
+
 
         defenseText.text = (card as IDefense)?.Defense.ToString() ?? " ";
         damageText.text = (card as IDamage)?.Damage.ToString() ?? " ";
@@ -38,9 +41,16 @@ public class CardButtonUI : MonoBehaviour
             GetComponent<Button>().interactable = false;
         }
     }
+    public void SetInteractable(bool state)
+    {
+        if (this == null) return;
+        GetComponent<Button>().interactable = state;
+        transform.localScale = new Vector3(0.75f, -0.75f, 1);
+        sprite.color = Color.grey;
+    }
     public void OnCardClicked()
     {
-        GameManager.Instance.PlayCard(cardIndex);
+        var command = new CardClickCommand(card);
+        GameManager.Instance.PlayCard(command); 
     }
-
 }

@@ -40,4 +40,14 @@ public class CardUIRenderer : MonoBehaviour
             buttonUI.Init(enemyCards[0], 0, true);
         }
     }
+    internal void DisableDefenseCards(List<ICard> cardsToDisable)
+    {
+        foreach (ICard card in cardsToDisable)
+        {
+            if (card is Card concreteCard)
+            {
+                concreteCard.Disable();
+            }
+        }
+    }
 }

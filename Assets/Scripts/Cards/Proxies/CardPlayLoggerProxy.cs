@@ -31,4 +31,9 @@ public class CardPlayLoggerProxy : Card
             Debug.Log($"[LOG] Finished card: {_realCard.Name}");
         }
     }
+    public T TryGetInterface<T>() where T : class
+    {
+        return _realCard as T;
+    }
+
 }
